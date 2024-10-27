@@ -1,0 +1,106 @@
+/* Import Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap');
+
+/* General Styles */
+body {
+    font-family: 'Nunito', sans-serif; /* Match the font from login.css */
+    margin: 0;
+    padding: 0;
+    background-color: #f0f4f8; /* Match homepage background color */
+    color: #333; /* Match homepage text color */
+    line-height: 1.6; /* Match line height for consistency */
+}
+
+.container {
+    display: flex;
+    height: 100vh; /* Full viewport height */
+}
+
+.form-content {
+    flex: 1;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #ffffff; /* White background for the form */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow for separation */
+}
+
+.image-container {
+    flex: 1;
+    display: flex;
+    justify-content: center; /* Center the image horizontally */
+    align-items: center; /* Center the image vertically */
+    background-color: #ffffff; /* White background behind the image */
+}
+
+.image-container img {
+    width: 100%; /* Set to 100% for more zoom effect */
+    max-width: 600px; /* Adjust max width for zoom */
+    border-radius: 10px; /* Rounded corners */
+}
+
+h2 {
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: 900; /* Make heading bold like in login.css */
+    color: #2c3e50; /* Dark color for the heading */
+}
+
+.form-list {
+    list-style-type: none; /* Remove bullets from the list */
+    padding: 0; /* Remove default padding */
+}
+
+.form-list li {
+    margin-bottom: 15px; /* Space between each list item */
+}
+
+label {
+    display: block; /* Make labels block elements for better alignment */
+    margin-bottom: 5px; /* Space between label and input */
+    color: #666; /* Lighter color for labels */
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: 100%; /* Make inputs take full width */
+    padding: 10px;
+    border: 1px solid #ccc; /* Light border for input fields */
+    border-radius: 5px; /* Rounded corners */
+    background-color: #f8f8f8; /* Subtle background for inputs */
+}
+
+input[type="submit"] {
+    background-color: #a3d2ca; /* Match button color with login.css */
+    color: #2c3e50; /* Text color from login.css */
+    padding: 12px 20px; /* Padding similar to buttons on login page */
+    border: none;
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transition for hover effect */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Box shadow for depth */
+}
+
+input[type="submit"]:hover {
+    background-color: #80b4a2; /* Lighter shade for hover effect */
+    color: #ffffff; /* White text on hover */
+    transform: translateY(-3px); /* Lift effect on hover */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Deeper shadow on hover */
+}
+
+.login-link {
+    text-align: center; /* Center the login link */
+    margin-top: 20px; /* Space above the login link */
+    color: #2c3e50; /* Match text color */
+}
+
+.login-link a {
+    color: #a3d2ca; /* Match link color with login.css */
+    text-decoration: none;
+}
+
+.login-link a:hover {
+    color: #80b4a2; /* Darker shade for hover effect */
+}

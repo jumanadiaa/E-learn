@@ -1,0 +1,124 @@
+body {
+  font-family: 'Nunito', sans-serif; /* Use Nunito font */
+  background-color: #f0f4f8; /* Light background color */
+  margin: 0;
+  padding: 0;
+  color: #333; /* Dark text color */
+  line-height: 1.6; /* Line height for readability */
+}
+
+.wrapper {
+  width: 100%;
+  max-width: 1200px; /* Limit the maximum width */
+  margin: 0 auto; /* Center the wrapper */
+  padding: 20px; /* Padding around the content */
+}
+
+.content {
+  background-color: white; /* White background for the content */
+  padding: 20px; /* Padding inside content */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.course-overview-header {
+  font-size: 2.5em; /* Increase font size */
+  text-align: center; /* Center the header */
+  margin-bottom: 20px; /* Space below the header */
+  color: #1e2a38; /* Dark color for contrast */
+}
+
+.search-container {
+  text-align: center; /* Center the search bar */
+  margin-bottom: 20px; /* Space below the search bar */
+}
+
+.search-container input {
+  width: 80%; /* Make the search bar wide */
+  padding: 10px; /* Padding inside the search bar */
+  border: 1px solid #ccc; /* Light border */
+  border-radius: 5px; /* Rounded corners */
+  font-size: 1em; /* Font size for input */
+  transition: border-color 0.3s; /* Smooth transition for border color */
+}
+
+.search-container input:focus {
+  border-color: #ff3e3e; /* Change border color on focus */
+  outline: none; /* Remove default outline */
+}
+
+.no-results {
+  text-align: center; /* Center the message */
+  color: #ff3e3e; /* Red color for no results message */
+  margin-top: 10px; /* Space above the message */
+  display: none; /* Initially hidden */
+}
+
+.courses-view {
+  display: flex; /* Use flexbox for layout */
+  flex-wrap: wrap; /* Wrap cards to next line */
+  justify-content: center; /* Center the cards */
+  gap: 20px; /* Space between cards */
+}
+
+.card {
+  background-color: #fff; /* White background for cards */
+  border: 1px solid #ddd; /* Light border */
+  border-radius: 8px; /* Rounded corners */
+  width: 300px; /* Fixed width for cards */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  transition: transform 0.3s; /* Smooth scale transition */
+}
+
+.card:hover {
+  transform: scale(1.02); /* Slightly enlarge card on hover */
+}
+
+.card h3 {
+  font-size: 1.5em; /* Font size for course title */
+  margin: 10px; /* Margin around title */
+  text-align: center; /* Center the title */
+  color: #1e2a38; /* Dark color for title */
+}
+
+.card-image {
+  width: 100%; /* Image takes full width of the card */
+  border-top-left-radius: 8px; /* Rounded corners on top */
+  border-top-right-radius: 8px; /* Rounded corners on top */
+}
+
+.card p {
+  padding: 10px; /* Padding inside description */
+  text-align: justify; /* Justify text */
+  color: #555; /* Darker gray for text */
+}
+
+.card-footer {
+  display: flex; /* Use flexbox for footer */
+  justify-content: center; /* Center the button */
+  padding: 10px; /* Padding inside footer */
+}
+
+.card-footer button {
+  background: linear-gradient(135deg, #f78b2d, #e8505b); /* Gradient background */
+  color: #fff; /* White text */
+  padding: 10px 20px; /* Padding inside button */
+  border: none; /* Remove border */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor */
+  font-size: 1rem; /* Font size */
+  font-weight: 700; /* Bold text */
+  transition: background 0.3s ease, transform 0.3s ease; /* Smooth transitions */
+}
+
+.card-footer button:hover {
+  background: linear-gradient(135deg, #e8505b, #f78b2d); /* Reversed gradient on hover */
+  transform: translateY(-2px); /* Lift button slightly on hover */
+}
+
+footer {
+  text-align: center; /* Center footer text */
+  margin-top: 20px; /* Space above footer */
+  color: #777; /* Light gray color for footer */
+  font-size: 0.9em; /* Smaller font size */
+}

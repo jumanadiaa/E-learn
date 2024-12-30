@@ -1,59 +1,53 @@
+<?php
+session_start();
+if (!isset($_SESSION['user_role']) || $_SESSION['user_role'] != 'instructor') {
+    header("Location: login.php");
+    exit();
+}
+
+include 'db_connect.php';
+$error = "";
+$course_id = $_GET['id'];
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $title = mysqli_real_escape_string($conn, $_POST['title']);
+    $description = mysqli_real_escape_string($conn, $_POST['description']);
+    
+    $query = "UPDATE courses SET title = '$title', description = '$description' WHERE id = $course_id";
+    if ($conn->query($query)) {
+        header("Location: instructor_courses.php");
+        exit();
+    } else {
+        $error = "Error updating course: " . $conn->error;
+    }
+} else {
+    $result = $conn->query("SELECT * FROM courses WHERE id = $course_id");
+    $course = $result->fetch_assoc();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>English Course Details</title>
-    <link rel="stylesheet" href="view/css/english.css">
+    <title>Edit Course</title>
+    <link rel="stylesheet" href="view/css/form.css">
+    <link rel="stylesheet" type="text/css" href="view/css/edit.css">
 </head>
 <body>
+    <?php include 'nav.php'; ?>
+    <div class="container">
+        <h2>Edit Course</h2>
+        <form action="edit_course.php?id=<?php echo $course_id; ?>" method="POST">
+            <label for="title">Course Title:</label>
+            <input type="text" name="title" value="<?php echo $course['title']; ?>" required>
 
-    <!-- Header -->
-    <header>
-        <h1>English Course </h1>
-    </header>
+            <label for="description">Description:</label>
+            <textarea name="description" required><?php echo $course['description']; ?></textarea>
 
-    <!-- Course Description Section -->
-    <section class="course-description">
-        <h2>Course Description</h2>
-        <p>This English course is designed to improve your reading, writing, speaking, and listening skills through interactive lessons tailored for all levels, helping you gain confidence in effective communication.</p>
-    </section>
-
-    <!-- Course Sections -->
-    <section class="course-sections">
-        <h2>Course Sections</h2>
-        <table>
-            <tr>
-                <th>Section</th>
-                <th>Description</th>
-                <th>Access</th>
-            </tr>
-            <tr>
-                <td>Lecture Slides</td>
-                <td>Access comprehensive lecture slides for each topic.</td>
-                <td><button onclick="window.location.href='lectures.php'">View Slides</button></td>
-            </tr>
-            <tr>
-                <td>Assignments</td>
-                <td>Complete assignments designed to reinforce learning.</td>
-                <td><button onclick="window.location.href='assignments.php'">View Assignments</button></td>
-            </tr>
-            <tr>
-                <td>Tutorials</td>
-                <td>Explore tutorials for enhanced understanding of the topics.</td>
-                <td><button onclick="window.location.href='tutorials.php'">View Tutorials</button></td>
-            </tr>
-            <tr>
-                <td>Quizzes</td>
-                <td>Participate in quizzes to assess your progress.</td>
-                <td><button onclick="window.location.href='quizzes.php'">Take Quiz</button></td>
-            </tr>
-        </table>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2024 E-Learn. All rights reserved.</p>
-    </footer>
+            <button type="submit" class="btn">Update Course</button>
+        </form>
+        <p><?php echo $error; ?></p>
+    </div>
 </body>
 </html>

@@ -1,59 +1,97 @@
+<?php
+// Include database connection file
+include 'db_connect.php';
+// Initialize error variable
+
+// Initialize variables
+$fullname = $email = $password = $role = "";
+$error_message = "";
+$success_message = "";
+
+// Check if the form is submitted
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Trim and sanitize input data
+    $fullname = trim($_POST['fullname']);
+    $email = trim($_POST['email']);
+    $password = trim($_POST['password']);
+    $role = trim($_POST['role']);
+    $role = "student";
+
+    // Validate input fields
+    if (empty($fullname) || empty($email) || empty($password) || empty($role)) {
+        $error_message = "All fields are required.";
+    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $error_message = "Invalid email format.";
+    } else {
+        // Check if email already exists
+        $stmt = $conn->prepare("SELECT * FROM users WHERE email = ?");
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            $error_message = "Email already registered.";
+        } else {
+            // Hash the password
+            $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
+            // Insert new user into the database
+            $stmt = $conn->prepare("INSERT INTO users (name, email, password, role, created_at) VALUES (?, ?, ?, ?, NOW())");
+            $stmt->bind_param("ssss", $fullname, $email, $hashed_password, $role);
+
+            if ($stmt->execute()) {
+                // Redirect to login page upon successful signup
+                header("Location: login.php");
+                exit();
+            } else {
+                $error_message = "Error during registration. Please try again.";
+            }
+        }
+    }
+}
+
+// Close the database connection
+$conn->close();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Software Engineering Course Details</title>
-    <link rel="stylesheet" href="view/css/software.css"> <!-- Update the CSS file name accordingly -->
+    <title>Sign Up - E-Learning Platform</title>
+    <link rel="stylesheet" type="text/css" href="view/css/signup.css?v=1.1">
+    <?php include 'nav.php'; ?> <!-- Include the navigation bar -->
 </head>
 <body>
-
-    <!-- Header -->
-    <header>
-        <h1>Software Engineering </h1>
-    </header>
-
-    <!-- Course Description Section -->
-    <section class="course-description">
-        <h2>Course Description</h2>
-        <p>This Software Engineering course is designed to teach you essential software development techniques, project management, and programming skills. You'll learn how to build robust applications and effectively collaborate in teams, preparing you for a successful career in software development.</p>
-    </section>
-
-    <!-- Course Sections -->
-    <section class="course-sections">
-        <h2>Course Sections</h2>
-        <table>
-            <tr>
-                <th>Section</th>
-                <th>Description</th>
-                <th>Access</th>
-            </tr>
-            <tr>
-                <td>Lecture Slides</td>
-                <td>Access comprehensive lecture slides for each topic.</td>
-                <td><button onclick="window.location.href='lectures.php'">View Slides</button></td>
-            </tr>
-            <tr>
-                <td>Assignments</td>
-                <td>Complete assignments designed to reinforce learning.</td>
-                <td><button onclick="window.location.href='assignments.php'">View Assignments</button></td>
-            </tr>
-            <tr>
-                <td>Tutorials</td>
-                <td>Explore tutorials for enhanced understanding of the topics.</td>
-                <td><button onclick="window.location.href='tutorials.php'">View Tutorials</button></td>
-            </tr>
-            <tr>
-                <td>Quizzes</td>
-                <td>Participate in quizzes to assess your progress.</td>
-                <td><button onclick="window.location.href='quizzes.php'">Take Quiz</button></td>
-            </tr>
-        </table>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2024 E-Learn. All rights reserved.</p>
-    </footer>
+    <div class="container">
+        <div class="form-content">
+            <h2>Sign Up</h2>
+            <form action="process_signup.php" method="POST">
+                <ul class="form-list">
+                    <li>
+                        <label for="fullname">Full Name:</label>
+                        <input type="text" name="fullname" id="fullname" required>
+                    </li>
+                    <li>
+                        <label for="email">Email:</label>
+                        <input type="email" name="email" id="email" required>
+                    </li>
+                    <li>
+                        <label for="password">Password:</label>
+                        <input type="password" name="password" id="password" required>
+                    </li>
+                    
+                </ul>
+                <input type="submit" value="Sign Up">
+            </form>
+            <div class="login-link">
+                <p>Already have an account? <a href="login.php">Log in</a></p>
+            </div>
+        </div>
+        <div class="image-container">
+            <img src="view/images/signuppic.jpg" alt="Signup Image">
+        </div>
+    </div>
 </body>
 </html>
